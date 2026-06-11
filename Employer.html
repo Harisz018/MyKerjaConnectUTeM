@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyKerjaConnectUTeM - Employer Dashboard</title>
+    </head>
+<body>
+
+    <div class="window-container">
+        
+        <div class="ui-label" id="ui-title-tag">UI 5.0: Employer Dashboard</div>
+
+        <header class="header">
+            <div class="header-left">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="system-name">MyKerjaConnectUTeM</div>
+            </div>
+            <div class="welcome-text">Welcome, (Employer)</div>
+        </header>
+
+        <div class="main-layout">
+            
+            <nav class="sidebar">
+                <button class="nav-btn active" onclick="changeScreen('ui-50', 'UI 5.0: Employer Dashboard', this)">Dashboard</button>
+                <button class="nav-btn" id="menu-btn-2" onclick="changeScreen('ui-51', 'UI 5.1: Employer Manage Vacancies', this)">Manage Vacancies</button>
+                <button class="nav-btn" id="menu-btn-3" onclick="changeScreen('ui-52', 'UI 5.2: Employer Review Apps', this)">Review Apps</button>
+                <button class="nav-btn" onclick="changeScreen('ui-53', 'UI 5.3: Employer Profile', this)">Profile</button>
+                <button class="nav-btn" onclick="changeScreen('ui-54', 'UI 5.4: Employer Sign Out', this)">Sign Out</button>
+            </nav>
+
+            <main class="content-area">
+                
+                <section id="ui-50" class="ui-screen active">
+                    <div class="section-banner">Employer Vacancy Summary Monitor</div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-title">Total Posted Jobs</div>
+                            <div class="stat-value">( )</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">Pending Apps</div>
+                            <div class="stat-value">( )</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">Total Distributed Payout</div>
+                            <div class="stat-value">( )</div>
+                        </div>
+                    </div>
+
+                    <div class="section-banner">Department Actions & Broadcast Alerts</div>
+                    <div class="log-box">Logs:</div>
+                </section>
+
+                <section id="ui-51" class="ui-screen">
+                    <div class="section-banner">Management Department Vacancies Control Log</div>
+                    
+                    <div class="grid-table-container">
+                        <div class="grid-table">
+                            <div class="column-box">
+                                <div class="column-title">Job</div>
+                                <div class="column-content">Vacancy</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Rate(RM/H)</div>
+                                <div class="column-content">Rate_<br>Numeric</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Max Hours</div>
+                                <div class="column-content">Max_<br>Hours</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Actions</div>
+                                <div class="column-content action-links">
+                                    <span class="action-link">[Edit]</span>
+                                    <span class="action-link">[Delete]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ui-52" class="ui-screen">
+                    <div class="section-banner">Review Student Application</div>
+                    
+                    <div class="grid-table-container">
+                        <div class="grid-table">
+                            <div class="column-box">
+                                <div class="column-title">Applicant</div>
+                                <div class="column-content">Student<br>_String</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Job Position</div>
+                                <div class="column-content">V_Title</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Applied date</div>
+                                <div class="column-content">App_<br>Timestamp</div>
+                            </div>
+                            <div class="column-box">
+                                <div class="column-title">Actions</div>
+                                <div class="column-content action-links">
+                                    <span class="action-link">[Approved]</span>
+                                    <span class="action-link">[Reject]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ui-53" class="ui-screen">
+                    <div class="section-banner">Manage Department Metadata & System Attributes</div>
+                    
+                    <div class="profile-wrapper">
+                        <div class="profile-grid">
+                            <div class="profile-block">
+                                <div class="block-title">Faculty Information</div>
+                                <div class="profile-field">
+                                    <div class="field-label">Facultye:</div>
+                                    <div class="field-value">[String_name]</div>
+                                </div>
+                                <div class="profile-field">
+                                    <div class="field-label">Location:</div>
+                                    <div class="field-value">[Location_Room_Unique]</div>
+                                </div>
+                            </div>
+                            <div class="profile-block">
+                                <div class="block-title">Contact & Authorize Config</div>
+                                <div class="profile-field">
+                                    <div class="field-label">Campus Email:</div>
+                                    <div class="field-value">[Email_string]</div>
+                                </div>
+                                <div class="profile-field">
+                                    <div class="field-label">Office Extension Number:</div>
+                                    <div class="field-value">[Phone_Num_Numeric]</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-row">
+                            <button class="update-btn">Update Profile</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ui-54" class="ui-screen">
+                    <div class="signout-container">
+                        <div class="confirm-box">Sign Out of MyKerjaConnectUTeM?</div>
+                        <div class="confirm-buttons">
+                            <button class="confirm-btn" onclick="changeScreen('ui-50', 'UI 5.0: Employer Dashboard', document.querySelector('.sidebar button'))">Cancel</button>
+                            <button class="confirm-btn">Confirm</button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="footer">Contact Us</footer>
+    </div>
+
+    <script>
+        function changeScreen(screenId, labelText, btnElement) {
+            const screens = document.querySelectorAll('.ui-screen');
+            screens.forEach(s => s.style.display = 'none');
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(screenId).style.display = 'flex';
+            btnElement.classList.add('active');
+
+            document.getElementById('ui-title-tag').innerText = labelText;
+
+            const menuBtn2 = document.getElementById('menu-btn-2');
+            const menuBtn3 = document.getElementById('menu-btn-3');
+            
+            if (screenId === 'ui-53' || screenId === 'ui-54') {
+                menuBtn2.innerText = "Browse Jobs";
+                menuBtn3.innerText = "Applications";
+            } else {
+                menuBtn2.innerText = "Manage Vacancies";
+                menuBtn3.innerText = "Review Apps";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const screens = document.querySelectorAll('.ui-screen');
+            screens.forEach(s => s.style.display = 'none');
+            document.getElementById('ui-50').style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
