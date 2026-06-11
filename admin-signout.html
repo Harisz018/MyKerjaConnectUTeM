@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Sign Out</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Admin)</h3>
+    </div>
+
+    <div class="dashboard-body">
+        <div class="sidebar">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-users.html">Manage Users</a>
+            <a href="admin-vacancies.html">Monitor Vacancies</a>
+            <a href="admin-reports.html">System Reports</a>
+            <a href="admin-signout.html" class="active-menu">Sign Out</a>
+        </div>
+
+        <div class="main-content signout-area">
+            <div class="signout-box">
+                <p>Sign Out of MyKerjaConnectUTeM?</p>
+
+                <div class="signout-buttons">
+                    <button class="admin-btn" onclick="cancelSignOut()">Cancel</button>
+                    <button class="admin-btn" onclick="confirmSignOut()">Confirm</button>
+                </div>
+            </div>
+
+            <div class="admin-pagination">
+                <button onclick="previousPage()">&lt;&lt; Previous</button>
+                <span>Page 5 of 5</span>
+                <button onclick="nextPage()">Next &gt;&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactUs()">Contact Us</button>
+    </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

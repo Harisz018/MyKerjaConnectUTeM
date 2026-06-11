@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin System Reports</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Admin)</h3>
+    </div>
+
+    <div class="dashboard-body">
+        <div class="sidebar">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-users.html">Manage Users</a>
+            <a href="admin-vacancies.html">Monitor Vacancies</a>
+            <a href="admin-reports.html" class="active-menu">System Reports</a>
+            <a href="admin-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+            <h3 class="section-title">Summary Dashboard</h3>
+
+            <div class="report-box">
+                <p>Total Registered Users: 2</p>
+                <p>Total Active Vacancies: 1</p>
+                <p>Reports Generated this month: 0</p>
+            </div>
+
+            <h3 class="section-title">Report Generation Options</h3>
+
+            <div class="report-box">
+                <p>Report Format: PDF</p>
+                <p>Date Range: From DD/MM/YYYY To DD/MM/YYYY</p>
+            </div>
+
+            <button class="admin-btn" onclick="generateReport()">Generate & Export Report</button>
+
+            <div class="admin-pagination">
+                <button onclick="previousPage()">&lt;&lt; Previous</button>
+                <span>Page 4 of 5</span>
+                <button onclick="nextPage()">Next &gt;&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactUs()">Contact Us</button>
+    </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

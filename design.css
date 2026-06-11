@@ -138,3 +138,250 @@ body {
     text-align: right;
     font-weight: bold;
 }
+
+/* style.css */
+:root {
+    --primary-bg: #f4f4f4;
+    --secondary-bg: #e0e0e0;
+    --dark-bg: #333333;
+    --text-color: #000000;
+    --highlight-border: #3498db;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--dark-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main Container */
+.app-container {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 1000px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Top Navbar */
+.navbar {
+    background-color: var(--secondary-bg);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background-color: var(--secondary-bg);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Dashboard Layout */
+.dashboard-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: var(--primary-bg);
+    border-right: 2px solid var(--secondary-bg);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar a {
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--secondary-bg);
+    text-align: center;
+    font-weight: bold;
+}
+
+.sidebar a:hover,
+.active-menu {
+    background-color: var(--secondary-bg);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Home Page */
+.home-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.btn-search {
+    background-color: var(--secondary-bg);
+    border: none;
+    padding: 10px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.job-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.job-card {
+    width: 200px;
+    height: 200px;
+    background-color: var(--secondary-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.job-card.active {
+    border: 3px solid var(--highlight-border);
+}
+
+/* ADMIN ONLY */
+
+.active-menu {
+    background-color: var(--secondary-bg);
+}
+
+.admin-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.admin-search input,
+.admin-search select {
+    flex: 1;
+    padding: 10px;
+    background-color: var(--secondary-bg);
+    border: none;
+    font-weight: bold;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.admin-table th {
+    background-color: var(--secondary-bg);
+    padding: 10px;
+}
+
+.admin-table td {
+    background-color: var(--primary-bg);
+    padding: 20px;
+    text-align: center;
+}
+
+.admin-table button {
+    border: none;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.admin-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.admin-pagination button,
+.admin-btn {
+    padding: 8px 15px;
+    border: none;
+    background-color: var(--secondary-bg);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.section-title {
+    background-color: var(--secondary-bg);
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.report-box {
+    background-color: var(--primary-bg);
+    padding: 15px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.full-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.signout-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+}
+
+.signout-box {
+    background-color: var(--primary-bg);
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.signout-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.contact-btn {
+    border: none;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.contact-btn:hover {
+    text-decoration: underline;
+}

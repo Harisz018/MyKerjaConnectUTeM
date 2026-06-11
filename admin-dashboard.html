@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin User Management</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Admin)</h3>
+    </div>
+
+    <div class="dashboard-body">
+
+        <div class="sidebar">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-users.html" class="active-menu">Manage Users</a>
+            <a href="admin-vacancies.html">Monitor Vacancies</a>
+            <a href="admin-reports.html">System Reports</a>
+            <a href="admin-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+
+            <div class="admin-search">
+                <input type="text" id="userSearch" placeholder="Search Name/Email" onkeyup="searchUsers()">
+
+                <select id="userFilter" onchange="searchUsers()">
+                    <option>All</option>
+                    <option>Student</option>
+                    <option>Employer</option>
+                </select>
+            </div>
+
+            <table class="admin-table" id="userTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr>
+                    <td>User A</td>
+                    <td>Student</td>
+                    <td>m@utem</td>
+                    <td>
+                        <button onclick="editItem('User A')">Edit</button>
+                        <button onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>User B</td>
+                    <td>Employer</td>
+                    <td>n@utem</td>
+                    <td>
+                        <button onclick="editItem('User B')">Edit</button>
+                        <button onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="admin-pagination">
+                <button onclick="previousPage()">&lt;&lt; Previous</button>
+                <span>Page 2 of 5</span>
+                <button onclick="nextPage()">Next &gt;&gt;</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactUs()">Contact Us</button>
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

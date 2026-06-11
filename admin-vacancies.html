@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Monitor Vacancies</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Admin)</h3>
+    </div>
+
+    <div class="dashboard-body">
+        <div class="sidebar">
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="admin-users.html">Manage Users</a>
+            <a href="admin-vacancies.html" class="active-menu">Monitor Vacancies</a>
+            <a href="admin-reports.html">System Reports</a>
+            <a href="admin-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+            <div class="admin-search">
+                <input type="text" id="jobSearch" placeholder="Search by Job Title" onkeyup="searchJobs()">
+                <input type="text" id="employerSearch" placeholder="Filter by Employer" onkeyup="searchJobs()">
+            </div>
+
+            <h3 class="section-title">Vacancy Listing</h3>
+
+            <table class="admin-table" id="jobTable">
+                <tr>
+                    <th>Job</th>
+                    <th>Employer</th>
+                    <th>Date Posted</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Job A</td>
+                    <td>Employer A</td>
+                    <td>DD/MM/YY</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>Job B</td>
+                    <td>Employer B</td>
+                    <td>DD/MM/YY</td>
+                    <td>Pending</td>
+                </tr>
+            </table>
+
+            <div class="admin-pagination">
+                <button onclick="previousPage()">&lt;&lt; Previous</button>
+                <span>Page 3 of 5</span>
+                <button onclick="nextPage()">Next &gt;&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactUs()">Contact Us</button>
+    </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
