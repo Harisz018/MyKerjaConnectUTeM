@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Manage Vacancies</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Employer)</h3>
+    </div>
+
+    <div class="dashboard-body">
+
+        <div class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-vacancies.html" class="active-menu">Manage Vacancies</a>
+            <a href="employer-review.html">Review Apps</a>
+            <a href="employer-profile.html">Profile</a>
+            <a href="employer-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+
+            <div class="employer-panel-title">
+                Management Department Vacancies Control Log
+            </div>
+
+            <table class="employer-table">
+                <tr>
+                    <th>Job</th>
+                    <th>Rate(RM/H)</th>
+                    <th>Max Hours</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr>
+                    <td>Vacancy</td>
+                    <td>Rate_Numeric</td>
+                    <td>Max_Hours</td>
+                    <td>
+                        <button onclick="editEmployerItem('Vacancy')">[Edit]</button>
+                        <button onclick="deleteEmployerRow(this)">[Delete]</button>
+                    </td>
+                </tr>
+            </table>
+
+            <button class="employer-btn" onclick="addVacancy()">Add Vacancy</button>
+
+            <div class="employer-pagination">
+                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
+                <span>Page 2 of 5</span>
+                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
+    </div>
+
+</div>
+
+<script src="employer.js"></script>
+</body>
+</html>

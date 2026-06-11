@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Profile</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Employer)</h3>
+    </div>
+
+    <div class="dashboard-body">
+
+        <div class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review.html">Review Apps</a>
+            <a href="employer-profile.html" class="active-menu">Profile</a>
+            <a href="employer-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+
+            <div class="employer-panel-title">
+                Manage Department Metadata & System Attributes
+            </div>
+
+            <div class="employer-profile-grid">
+
+                <div class="employer-profile-box">
+                    <h4>Faculty Information</h4>
+
+                    <p>Faculty:</p>
+                    <input type="text" id="faculty" value="String_name">
+
+                    <p>Location:</p>
+                    <input type="text" id="location" value="Location_Room_Unique">
+                </div>
+
+                <div class="employer-profile-box">
+                    <h4>Contact & Authorize Config</h4>
+
+                    <p>Campus Email:</p>
+                    <input type="text" id="email" value="Email_string">
+
+                    <p>Office Extension Number:</p>
+                    <input type="text" id="phone" value="Phone_Num_Numeric">
+                </div>
+
+            </div>
+
+            <button class="employer-btn" onclick="updateProfile()">Update Profile</button>
+
+            <div class="employer-pagination">
+                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
+                <span>Page 4 of 5</span>
+                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
+    </div>
+
+</div>
+
+<script src="employer.js"></script>
+</body>
+</html>

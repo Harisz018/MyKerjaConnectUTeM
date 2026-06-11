@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Review Apps</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="dashboard-header">
+        <h3>☰ MyKerjaConnectUTeM</h3>
+        <h3>Welcome, (Employer)</h3>
+    </div>
+
+    <div class="dashboard-body">
+
+        <div class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review.html" class="active-menu">Review Apps</a>
+            <a href="employer-profile.html">Profile</a>
+            <a href="employer-signout.html">Sign Out</a>
+        </div>
+
+        <div class="main-content">
+
+            <div class="employer-panel-title">
+                Review Student Application
+            </div>
+
+            <table class="employer-table">
+                <tr>
+                    <th>Applicant</th>
+                    <th>Job Position</th>
+                    <th>Applied Date</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr>
+                    <td>Student_String</td>
+                    <td>V_Title</td>
+                    <td>App_Timestamp</td>
+                    <td>
+                        <button onclick="approveApplication(this)">[Approve]</button>
+                        <button onclick="rejectApplication(this)">[Reject]</button>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="employer-pagination">
+                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
+                <span>Page 3 of 5</span>
+                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
+    </div>
+
+</div>
+
+<script src="employer.js"></script>
+</body>
+</html>
