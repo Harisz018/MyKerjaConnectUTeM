@@ -1,4 +1,4 @@
-/* style.css */
+
 :root {
     --primary-bg: #f4f4f4;
     --secondary-bg: #e0e0e0;
@@ -22,7 +22,6 @@ body {
     min-height: 100vh;
 }
 
-/* Main Container to mimic the window frame in the mockups */
 .app-container {
     background-color: #ffffff;
     width: 90%;
@@ -33,7 +32,6 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Top Navbar (Public) */
 .navbar {
     background-color: var(--secondary-bg);
     padding: 15px 20px;
@@ -131,7 +129,6 @@ body {
     border: 3px solid var(--highlight-border);
 }
 
-/* Footer */
 .footer {
     background-color: var(--secondary-bg);
     padding: 15px 20px;
