@@ -1,62 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Employer Dashboard</title>
-    <link rel="stylesheet" href="design.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | MyKerjaConnect UTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-body">
 
-<div class="dashboard-header">
-    <h3>☰ MyKerjaConnectUTeM</h3>
-    <h3>Welcome, (Employer)</h3>
-</div>
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div id="welcomeMessage">Welcome, (Name)</div>
+    </header>
 
-<div class="dashboard-container">
-    <div class="sidebar">
-        <a href="employer-dashboard.html">Dashboard</a>
-        <a href="employer-vacancies.html">Manage Vacancies</a>
-        <a href="employer-review.html">Review Apps</a>
-        <a href="employer-profile.html">Profile</a>
-        <a href="employer-signout.html">Sign Out</a>
+    <div class="dashboard-container">
+        <nav class="sidebar" id="sidebar">
+            <a href="student-dashboard.html">Dashboard</a>
+            <a href="student-browsejobs.html">Browse Jobs</a>
+            <a href="student-applications.html">Applications</a>
+            <a href="student-profile.html">Profile</a>
+            <a href="student-logout.html" id="signOutBtn">Sign Out</a>
+        </nav>
+
+        <main class="dashboard-content">
+            <section class="performance-summary">
+                <h2>Student Performance Summary Monitor</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">Total Applied<br><strong>( )</strong></div>
+                    <div class="stat-card">Approved<br><strong>( )</strong></div>
+                    <div class="stat-card">Total Earnings<br><strong>( )</strong></div>
+                </div>
+            </section>
+
+            <section class="alerts-section">
+                <h3>System Broadcast Alerts & Updates</h3>
+                <div class="updates-box">
+                    <p>Updates:</p>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <div class="dashboard-content">
-        <h2>Employer Vacancy Summary Monitor</h2>
+    <footer class="dashboard-footer">
+        <a href="#">Contact Us</a>
+    </footer>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Posted Jobs</h3>
-                <p id="postedJobs">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>Pending Apps</h3>
-                <p id="pendingApps">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>Total Distributed Payout</h3>
-                <p id="payout">RM 0</p>
-            </div>
-        </div>
-
-        <div class="updates-box">
-            <h3>Department Actions & Broadcast Alerts</h3>
-            <br>
-            <p>Logs:</p>
-            <p id="logText">No new logs.</p>
-        </div>
-
-        <div class="employer-pagination">
-            <button onclick="previousEmployerPage()">&lt;&lt; Previous</button>
-            <span>Page 1 of 5</span>
-            <button onclick="nextEmployerPage()">Next &gt;&gt;</button>
-        </div>
-    </div>
-</div>
-
-<div class="dashboard-footer">
-    <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
-</div>
-
-<script src="employer.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
