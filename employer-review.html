@@ -1,69 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Employer Review Apps</title>
-    <link rel="stylesheet" href="design.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Apps | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-body">
 
-<div class="app-container">
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div style="font-weight: 600;">Welcome, Employer</div>
+    </header>
 
-    <div class="dashboard-header">
-        <h3>☰ MyKerjaConnectUTeM</h3>
-        <h3>Welcome, (Employer)</h3>
-    </div>
-
-    <div class="dashboard-body">
-
-        <div class="sidebar">
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
             <a href="employer-dashboard.html">Dashboard</a>
-            <a href="employer-vacancies.html">Manage Vacancies</a>
-            <a href="employer-review.html" class="active-menu">Review Apps</a>
+            <a href="employer-manage-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review-apps.html" class="active" style="background: #e0eafc; color: #0056b3;">Review Apps</a>
             <a href="employer-profile.html">Profile</a>
             <a href="employer-signout.html">Sign Out</a>
-        </div>
+        </aside>
 
-        <div class="main-content">
+        <main class="dashboard-content">
+            
+            <h2>Review Student Application</h2>
 
-            <div class="employer-panel-title">
-                Review Student Application
+            <div class="updates-box" style="margin-top: 20px; padding: 20px;">
+                
+                <table class="application-table">
+                    <thead>
+                        <tr>
+                            <th>Applicant</th>
+                            <th>Job Position</th>
+                            <th>Applied date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Student_String</td>
+                            <td>V_Title</td>
+                            <td>App_Timestamp</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #28a745; margin-right: 5px;">Approved</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545;">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ahmad Ikhwan Hakimi</td>
+                            <td>Lab Assistant</td>
+                            <td>12-06-2026 14:30</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #28a745; margin-right: 5px;">Approved</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545;">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
 
-            <table class="employer-table">
-                <tr>
-                    <th>Applicant</th>
-                    <th>Job Position</th>
-                    <th>Applied Date</th>
-                    <th>Actions</th>
-                </tr>
-
-                <tr>
-                    <td>Student_String</td>
-                    <td>V_Title</td>
-                    <td>App_Timestamp</td>
-                    <td>
-                        <button onclick="approveApplication(this)">[Approve]</button>
-                        <button onclick="rejectApplication(this)">[Reject]</button>
-                    </td>
-                </tr>
-            </table>
-
-            <div class="employer-pagination">
-                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
-                <span>Page 3 of 5</span>
-                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
-            </div>
-
-        </div>
-
+        </main>
     </div>
 
-    <div class="footer">
-        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
-    </div>
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
 
-</div>
-
-<script src="employer.js"></script>
 </body>
 </html>
