@@ -1,76 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Employer Profile</title>
-    <link rel="stylesheet" href="design.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Profile | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-body">
 
-<div class="app-container">
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div style="font-weight: 600;">Welcome, Employer</div>
+    </header>
 
-    <div class="dashboard-header">
-        <h3>☰ MyKerjaConnectUTeM</h3>
-        <h3>Welcome, (Employer)</h3>
-    </div>
-
-    <div class="dashboard-body">
-
-        <div class="sidebar">
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
             <a href="employer-dashboard.html">Dashboard</a>
-            <a href="employer-vacancies.html">Manage Vacancies</a>
-            <a href="employer-review.html">Review Apps</a>
-            <a href="employer-profile.html" class="active-menu">Profile</a>
+            <a href="employer-manage-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review-apps.html">Review Apps</a>
+            <a href="employer-profile.html" class="active" style="background: #e0eafc; color: #0056b3;">Profile</a>
             <a href="employer-signout.html">Sign Out</a>
-        </div>
+        </aside>
 
-        <div class="main-content">
+        <main class="dashboard-content">
+            
+            <h2>Manage Department Metadata & System Attributes</h2>
 
-            <div class="employer-panel-title">
-                Manage Department Metadata & System Attributes
-            </div>
+            <form action="#" method="POST" style="margin-top: 20px;">
+                <div class="profile-grid">
+                    
+                    <div class="profile-section">
+                        <h3>Faculty Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="faculty">Faculty:</label>
+                            <input type="text" id="faculty" name="faculty" placeholder="[String_name]">
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" placeholder="[Location_Room_Unique]">
+                        </div>
+                    </div>
 
-            <div class="employer-profile-grid">
+                    <div class="profile-section">
+                        <h3>Contact & Authorize Config</h3>
+                        
+                        <div class="form-group">
+                            <label for="email">Campus Email:</label>
+                            <input type="email" id="email" name="email" placeholder="[Email_string]">
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="phone">Office Extension Number:</label>
+                            <input type="text" id="phone" name="phone" placeholder="[Phone_Num_Numeric]">
+                        </div>
+                    </div>
 
-                <div class="employer-profile-box">
-                    <h4>Faculty Information</h4>
-
-                    <p>Faculty:</p>
-                    <input type="text" id="faculty" value="String_name">
-
-                    <p>Location:</p>
-                    <input type="text" id="location" value="Location_Room_Unique">
                 </div>
 
-                <div class="employer-profile-box">
-                    <h4>Contact & Authorize Config</h4>
-
-                    <p>Campus Email:</p>
-                    <input type="text" id="email" value="Email_string">
-
-                    <p>Office Extension Number:</p>
-                    <input type="text" id="phone" value="Phone_Num_Numeric">
+                <div style="text-align: right; margin-top: 25px;">
+                    <button type="submit" class="apply-btn" style="padding: 12px 35px;">Update Profile</button>
                 </div>
+            </form>
 
-            </div>
-
-            <button class="employer-btn" onclick="updateProfile()">Update Profile</button>
-
-            <div class="employer-pagination">
-                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
-                <span>Page 4 of 5</span>
-                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
-            </div>
-
-        </div>
-
+        </main>
     </div>
 
-    <div class="footer">
-        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
-    </div>
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
 
-</div>
-
-<script src="employer.js"></script>
 </body>
 </html>
