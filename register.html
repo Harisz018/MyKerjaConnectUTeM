@@ -26,10 +26,10 @@
                     <label><input type="radio" name="userType" value="student" checked> Student</label>
                     <label><input type="radio" name="userType" value="employer"> Employer</label>
                 </div>
-                <input type="text" placeholder="Full Name" required>
-                <input type="text" placeholder="Matric Number" required>
-                <input type="email" placeholder="UTeM Email Address" required>
-                <input type="password" placeholder="Password" required>
+                <input type="text" id="regName" placeholder="Full Name" required>
+                <input type="text" id="regMatric" placeholder="Matric Number" required>
+                <input type="email" id="regEmail" placeholder="UTeM Email Address" required>
+                <input type="password" id="regPassword" placeholder="Password" required>
                 <div class="file-upload">
                     <label>Resume (PDF/Image):</label>
                     <input type="file" accept=".pdf,image/*">
@@ -43,17 +43,6 @@
         <p>&copy; 2026 MyKerjaConnect UTeM | <a href="#">Contact Us</a></p>
     </footer>
 
-    <script>
-        function handleRegister(event) {
-            // Prevent the form from reloading the page
-            event.preventDefault(); 
-            
-            // Display the professional welcome message
-            alert("Welcome to MyKerjaConnect UTeM! Your account has been created successfully. Please log in to continue.");
-            
-            // Direct the user to the login page
-            window.location.href = "login.html";
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
