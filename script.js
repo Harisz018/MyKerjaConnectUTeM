@@ -22,14 +22,13 @@ function handleLogin(event) {
     const email = document.querySelector('input[name="email"]').value;
     const password = document.querySelector('input[name="password"]').value;
     const selectedRole = document.querySelector('input[name="userRole"]:checked').value;
-    const username = document.getElementById('usernameInput').value;
     
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-    
     const user = registeredUsers.find(u => u.email === email && u.password === password && u.role === selectedRole);
 
     if (user) {
-        localStorage.setItem('loggedInUser', username);
+        localStorage.setItem('loggedInUser', user.name); 
+        localStorage.setItem('userRole', selectedRole);
         
         let targetPage = "";
         switch(selectedRole) {
@@ -45,9 +44,17 @@ function handleLogin(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const username = localStorage.getItem('loggedInUser');
+    let username = localStorage.getItem('loggedInUser');
+    const role = localStorage.getItem('userRole') || 'User';
     const welcomeElement = document.getElementById('welcomeMessage');
-    if (username && welcomeElement) welcomeElement.innerText = "Welcome, " + username;
+    
+    if (!username || username === "undefined") {
+        username = role.charAt(0).toUpperCase() + role.slice(1);
+    }
+
+    if (welcomeElement) {
+        welcomeElement.innerText = "Welcome, " + username;
+    }
 
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
@@ -63,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             if (confirm("Sign Out of MyKerjaConnectUTeM?")) {
                 localStorage.removeItem('loggedInUser');
+                localStorage.removeItem('userRole');
                 sessionStorage.removeItem('myApplications'); 
                 window.location.href = 'login.html';
             }
@@ -71,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function checkSession() {
         const loggedInUser = localStorage.getItem('loggedInUser');
-        const restrictedPages = ['student-dashboard.html', 'admin-dashboard.html', 'employer-dashboard.html', 'student-applications.html'];
+        const restrictedPages = ['student-dashboard.html', 'admin-dashboard.html', 'employer-dashboard.html', 'student-applications.html', 'employer-review-apps.html'];
         
         if (!loggedInUser && restrictedPages.some(page => window.location.pathname.includes(page))) {
             window.location.href = 'login.html';
@@ -101,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!tableBody) return;
 
         const applications = JSON.parse(sessionStorage.getItem('myApplications')) || [];
-        
         tableBody.innerHTML = ''; 
         
         applications.forEach(app => {
