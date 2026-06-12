@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Employer Sign Out</title>
-    <link rel="stylesheet" href="design.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Out | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-body">
 
-<div class="app-container">
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div style="font-weight: 600;">Welcome, Employer</div>
+    </header>
 
-    <div class="dashboard-header">
-        <h3>☰ MyKerjaConnectUTeM</h3>
-        <h3>Welcome, (Employer)</h3>
-    </div>
-
-    <div class="dashboard-body">
-
-        <div class="sidebar">
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
             <a href="employer-dashboard.html">Dashboard</a>
-            <a href="employer-vacancies.html">Manage Vacancies</a>
-            <a href="employer-review.html">Review Apps</a>
+            <a href="employer-manage-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review-apps.html">Review Apps</a>
             <a href="employer-profile.html">Profile</a>
-            <a href="employer-signout.html" class="active-menu">Sign Out</a>
-        </div>
+            <a href="index.html" onclick="return sahkanLogKeluar()" class="active" style="background: #e0eafc; color: #0056b3;">Sign Out</a>
+        </aside>
 
-        <div class="main-content employer-signout-area">
-
-            <div class="employer-signout-box">
-                <p>Sign Out of MyKerjaConnectUTeM?</p>
-
-                <div class="employer-signout-buttons">
-                    <button class="employer-btn" onclick="cancelEmployerSignOut()">Cancel</button>
-                    <button class="employer-btn" onclick="confirmEmployerSignOut()">Confirm</button>
-                </div>
-            </div>
-
-            <div class="employer-pagination">
-                <button onclick="previousEmployerPage()">&lt;&lt;Previous</button>
-                <span>Page 5 of 5</span>
-                <button onclick="nextEmployerPage()">Next&gt;&gt;</button>
-            </div>
-
-        </div>
-
+        <main class="dashboard-content" style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+            <p style="color: #888; font-style: italic;">Processing sign out confirmation...</p>
+        </main>
     </div>
 
-    <div class="footer">
-        <button class="contact-btn" onclick="contactEmployer()">Contact Us</button>
-    </div>
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
 
-</div>
+    <script>
+        // Jalankan pop-up secara automatik sebaik sahaja halaman ini dimuatkan
+        window.onload = function() {
+            sahkanLogKeluarDirect();
+        };
 
-<script src="employer.js"></script>
+        function sahkanLogKeluar() {
+            return confirm("Sign Out of MyKerjaConnectUTeM?");
+        }
+
+        function sahkanLogKeluarDirect() {
+            var respons = confirm("Sign Out of MyKerjaConnectUTeM?");
+            if (respons) {
+                window.location.href = "index.html"; // Jika OK, pergi ke index
+            } else {
+                window.location.href = "employer-dashboard.html"; // Jika Cancel, patah balik ke Dashboard
+            }
+        }
+    </script>
+
 </body>
 </html>
