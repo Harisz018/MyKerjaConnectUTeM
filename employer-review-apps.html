@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Applications | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, Employer</div>
+    </header>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-manage-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review-apps.html" class="active" style="background: #e0eafc; color: #0056b3;">Review Apps</a>
+            <a href="employer-profile.html">Profile</a>
+            <a href="employer-signout.html" id="signOutBtn">Sign Out</a>
+        </aside>
+
+        <main class="dashboard-content">
+            <h2>Review Student Application</h2>
+            
+            <div class="updates-box" style="margin-top: 20px; padding: 20px;">
+                
+                <table class="application-table">
+                    <thead>
+                        <tr>
+                            <th>Applicant</th>
+                            <th>Job Position</th>
+                            <th>Applied date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employerReviewTableBody">
+                        <tr>
+                            <td>Student_String</td>
+                            <td>V_Title</td>
+                            <td>App_Timestamp</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-right: 5px; cursor: pointer;">Approved</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Muhammad Ikhwan</td>
+                            <td>Lab Assistant</td>
+                            <td>12/6/2026</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-right: 5px; cursor: pointer;">Approved</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </main>
+    </div>
+
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
+
+    <script src="script.js?v=1"></script>
+
+</body>
+</html>
