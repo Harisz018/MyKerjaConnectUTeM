@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Vacancies | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, Employer</div>
+    </header>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-manage-vacancies.html" class="active" style="background: #e0eafc; color: #0056b3;">Manage Vacancies</a>
+            <a href="employer-review-apps.html">Review Apps</a>
+            <a href="employer-profile.html">Profile</a>
+            <a href="employer-signout.html" id="signOutBtn">Sign Out</a>
+        </aside>
+
+        <main class="dashboard-content">
+            
+            <h2>Management Department Vacancies Control Log</h2>
+
+            <div class="updates-box" style="margin-top: 20px; padding: 20px;">
+                
+                <table class="application-table">
+                    <thead>
+                        <tr>
+                            <th>Job</th>
+                            <th>Rate (RM/H)</th>
+                            <th>Max Hours</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vacancy_Name_Example</td>
+                            <td>Rate_Numeric</td>
+                            <td>Max_Hours</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #0056b3; margin-right: 5px;">Edit</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545;">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lab Assistant</td>
+                            <td>12.00</td>
+                            <td>20</td>
+                            <td>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #0056b3; margin-right: 5px;">Edit</button>
+                                <button style="padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545;">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
+
+    <script src="script.js?v=1"></script>
+
+</body>
+</html>
