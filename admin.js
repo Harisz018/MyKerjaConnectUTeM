@@ -2,9 +2,26 @@ const adminPages = [
     "admin-dashboard.html",
     "admin-users.html",
     "admin-vacancies.html",
-    "admin-reports.html",
-    "admin-signout.html"
+    "admin-reports.html"
 ];
+
+window.onload = function () {
+    let adminName = localStorage.getItem("adminName");
+
+    if (!adminName) {
+        adminName = localStorage.getItem("username");
+    }
+
+    if (!adminName) {
+        adminName = "Admin";
+    }
+
+    let adminText = document.getElementById("adminName");
+
+    if (adminText) {
+        adminText.innerHTML = "Welcome, " + adminName;
+    }
+};
 
 function getCurrentPageIndex() {
     let currentPage = window.location.pathname.split("/").pop();
@@ -17,7 +34,7 @@ function previousPage() {
     if (index > 0) {
         window.location.href = adminPages[index - 1];
     } else {
-        alert("You are already on the first page.");
+        alert("Already on first page.");
     }
 }
 
@@ -27,72 +44,69 @@ function nextPage() {
     if (index < adminPages.length - 1) {
         window.location.href = adminPages[index + 1];
     } else {
-        alert("You are already on the last page.");
+        alert("Already on last page.");
     }
 }
 
 function contactUs() {
-    alert("Contact Us: mykerjaconnect@utem.edu.my");
+    alert("MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567");
 }
 
-function editItem(itemName) {
-    alert("Edit selected: " + itemName);
+function editItem(name) {
+    alert("Editing: " + name);
 }
 
 function deleteRow(button) {
-    let confirmDelete = confirm("Are you sure you want to delete this item?");
+    let confirmDelete = confirm("Are you sure you want to delete this record?");
 
     if (confirmDelete) {
-        let row = button.parentElement.parentElement;
-        row.remove();
-        alert("Item deleted successfully.");
+        button.closest("tr").remove();
     }
 }
 
 function generateReport() {
-    alert("System report generated successfully.");
-}
-
-function cancelSignOut() {
-    window.location.href = "admin-dashboard.html";
+    alert("Report Generated Successfully!");
 }
 
 function confirmSignOut() {
-    alert("You have signed out successfully.");
-    window.location.href = "home.html";
+    let confirmLogout = confirm("Are you sure you want to sign out?");
+
+    if (confirmLogout) {
+        localStorage.removeItem("adminName");
+        window.location.href = "home.html";
+    }
 }
 
 function searchUsers() {
-    let searchInput = document.getElementById("userSearch").value.toLowerCase();
-    let filterValue = document.getElementById("userFilter").value.toLowerCase();
-    let table = document.getElementById("userTable");
-    let rows = table.getElementsByTagName("tr");
+    let search = document.getElementById("userSearch").value.toLowerCase();
+    let filter = document.getElementById("userFilter").value.toLowerCase();
+    let rows = document.querySelectorAll("#userTable tr");
 
     for (let i = 1; i < rows.length; i++) {
-        let name = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
-        let role = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
-        let email = rows[i].getElementsByTagName("td")[2].innerText.toLowerCase();
+        let name = rows[i].children[0].innerText.toLowerCase();
+        let role = rows[i].children[1].innerText.toLowerCase();
+        let email = rows[i].children[2].innerText.toLowerCase();
 
-        let matchSearch = name.includes(searchInput) || email.includes(searchInput);
-        let matchFilter = filterValue === "all" || role === filterValue;
-
-        rows[i].style.display = matchSearch && matchFilter ? "" : "none";
+        rows[i].style.display =
+            (name.includes(search) || email.includes(search)) &&
+            (filter === "all" || role === filter)
+            ? ""
+            : "none";
     }
 }
 
 function searchJobs() {
-    let jobInput = document.getElementById("jobSearch").value.toLowerCase();
-    let employerInput = document.getElementById("employerSearch").value.toLowerCase();
-    let table = document.getElementById("jobTable");
-    let rows = table.getElementsByTagName("tr");
+    let jobSearch = document.getElementById("jobSearch").value.toLowerCase();
+    let employerSearch = document.getElementById("employerSearch").value.toLowerCase();
+    let rows = document.querySelectorAll("#jobTable tr");
 
     for (let i = 1; i < rows.length; i++) {
-        let job = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
-        let employer = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
+        let job = rows[i].children[0].innerText.toLowerCase();
+        let employer = rows[i].children[1].innerText.toLowerCase();
 
-        let matchJob = job.includes(jobInput);
-        let matchEmployer = employer.includes(employerInput);
-
-        rows[i].style.display = matchJob && matchEmployer ? "" : "none";
+        rows[i].style.display =
+            job.includes(jobSearch) && employer.includes(employerSearch)
+            ? ""
+            : "none";
     }
 }
