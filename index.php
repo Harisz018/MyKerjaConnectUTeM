@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +13,14 @@
     <header>
         <div class="logo">MyKerjaConnectUTeM</div>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="register.html">Register</a>
-            <a href="login.html">Login</a>
+            <a href="index.php">Home</a>
+            <?php if(isset($_SESSION['role'])): ?>
+                <a href="<?php echo $_SESSION['role']; ?>-dashboard.php">Dashboard</a>
+                <a href="logout.php">Logout</a>
+            <?php else: ?>
+                <a href="register.php">Register</a>
+                <a href="login.php">Login</a>
+            <?php endif; ?>
         </nav>
     </header>
 
@@ -28,9 +34,9 @@
         </section>
 
         <section class="categories">
-            <a href="#" class="card" onclick="promptLogin(event)"><h3>Campus Library Assistant</h3></a>
-            <a href="#" class="card" onclick="promptLogin(event)"><h3>Cafeteria Server</h3></a>
-            <a href="#" class="card" onclick="promptLogin(event)"><h3>Lab Assistant</h3></a>
+            <a href="login.php" class="card" onclick="promptLogin(event)"><h3>Campus Library Assistant</h3></a>
+            <a href="login.php" class="card" onclick="promptLogin(event)"><h3>Cafeteria Server</h3></a>
+            <a href="login.php" class="card" onclick="promptLogin(event)"><h3>Lab Assistant</h3></a>
         </section>
     </main>
 
@@ -39,18 +45,14 @@
     </footer>
 
     <script>
-        // Simulate login state
-        let isLoggedIn = false; 
+        let isLoggedIn = <?php echo isset($_SESSION['role']) ? 'true' : 'false'; ?>; 
 
         function promptLogin(event) {
             if (!isLoggedIn) {
-                event.preventDefault(); // Prevents moving to the link
-                
-                // A softer reminder message
+                event.preventDefault(); 
                 const userAction = confirm("To view full job details and apply, please log in or register your account. Would you like to go to the login page?");
-                
                 if (userAction) {
-                    window.location.href = "login.html"; // Redirects to login
+                    window.location.href = "login.php"; 
                 }
             }
         }
