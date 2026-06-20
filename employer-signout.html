@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Profile | MyKerjaConnectUTeM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <header class="dashboard-header">
+        <div class="logo">MyKerjaConnectUTeM</div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, Employer</div>
+    </header>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <a href="employer-dashboard.html">Dashboard</a>
+            <a href="employer-manage-vacancies.html">Manage Vacancies</a>
+            <a href="employer-review-apps.html">Review Apps</a>
+            <a href="employer-profile.html" class="active" style="background: #e0eafc; color: #0056b3;">Profile</a>
+            <a href="employer-signout.html" id="signOutBtn">Sign Out</a>
+        </aside>
+
+        <main class="dashboard-content">
+            
+            <h2>Manage Department Metadata & System Attributes</h2>
+
+            <form id="profileForm" action="#" style="margin-top: 20px;">
+                <div class="profile-grid">
+                    
+                    <div class="profile-section">
+                        <h3>Faculty Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="faculty">Faculty:</label>
+                            <input type="text" id="faculty" name="faculty" placeholder="[String_name]">
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" placeholder="[Location_Room_Unique]">
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>Contact & Authorize Config</h3>
+                        
+                        <div class="form-group">
+                            <label for="email">Campus Email:</label>
+                            <input type="email" id="email" name="email" placeholder="[Email_string]">
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label for="phone">Office Extension Number:</label>
+                            <input type="text" id="phone" name="phone" placeholder="[Phone_Num_Numeric]">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align: right; margin-top: 25px;">
+                    <button type="button" id="updateBtn" class="apply-btn" style="padding: 12px 35px;" onclick="updateProfile()">Update Profile</button>
+                </div>
+            </form>
+
+        </main>
+    </div>
+
+    <footer class="dashboard-footer">
+        <a href="#" style="color: #666; text-decoration: none; font-size: 0.9rem;">Contact Us</a>
+    </footer>
+
+    <script src="script.js?v=1"></script>
+
+</body>
+</html>
