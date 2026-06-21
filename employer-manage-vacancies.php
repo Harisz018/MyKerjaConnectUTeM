@@ -67,7 +67,7 @@ $jobs_result = $conn->query($jobs_sql);
                 <form action="employer-manage-vacancies.php" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <input type="hidden" name="action" value="add_job">
                     <input type="text" name="title" placeholder="Job Title (e.g. Lab Assistant)" required style="padding:10px;">
-                    <input type="number" step="0.01" name="salary" placeholder="Rate RM/H" required style="padding:10px;">
+                    <input type="number" step="0.01" name="salary" placeholder="Rate RM" required style="padding:10px;">
                     
                     <select name="location" required style="padding:10px;">
                         <option value="" disabled selected>Select Location/Faculty</option>
@@ -92,7 +92,7 @@ $jobs_result = $conn->query($jobs_sql);
                         <tr>
                             <th>Job Title</th>
                             <th>Location</th>
-                            <th>Rate (RM/H)</th>
+                            <th>Rate (RM)</th>
                             <th>Work Status</th>
                             <th>Actions</th>
                         </tr>
