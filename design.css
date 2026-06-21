@@ -240,6 +240,16 @@ footer a:hover {
     color: #0056b3; 
 }
 
+.sidebar a.active {
+    background: #0056b3;
+    color: white;
+}
+
+.sidebar a.active:hover {
+    background: #004494;
+    color: white;
+}
+
 .dashboard-content { 
     flex: 1; 
     padding: 30px; 
@@ -397,7 +407,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-    /* Header adjustments */
     header {
         flex-direction: column;
         gap: 15px;
@@ -415,7 +424,6 @@ footer a:hover {
         font-size: 0.85rem;
     }
 
-    /* Search box adjustments */
     input[type="text"] {
         width: 100%;
     }
@@ -424,13 +432,11 @@ footer a:hover {
         flex-direction: column;
     }
 
-    /* Categories Grid: 1 column instead of 3 */
     .categories {
         grid-template-columns: 1fr;
         padding: 0 5% 40px 5%;
     }
 
-    /* Dashboard Layout: Sidebar becomes a top nav or stacks */
     .dashboard-container {
         flex-direction: column;
     }

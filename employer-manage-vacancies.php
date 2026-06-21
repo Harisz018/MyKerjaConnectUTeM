@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $salary = $conn->real_escape_string($_POST['salary']);
     $location = $conn->real_escape_string($_POST['location']);
     $desc = $conn->real_escape_string($_POST['description']);
-    $job_id = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8); // Generate ID
+    $job_id = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
     
     $insert_sql = "INSERT INTO job (job_id, title, description, salary, location, status, employer_id) 
                    VALUES ('$job_id', '$title', '$desc', '$salary', '$location', 'Active', '$employer_id')";
@@ -43,7 +43,7 @@ $jobs_result = $conn->query($jobs_sql);
 <body class="dashboard-body">
     <header class="dashboard-header">
         <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo $_SESSION['name']; ?></div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
     </header>
 
     <div class="dashboard-container">
@@ -61,8 +61,19 @@ $jobs_result = $conn->query($jobs_sql);
                 <form action="employer-manage-vacancies.php" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <input type="hidden" name="action" value="add_job">
                     <input type="text" name="title" placeholder="Job Title (e.g. Lab Assistant)" required style="padding:10px;">
-                    <input type="number" step="0.01" name="salary" placeholder="Rate RM/H" required style="padding:10px;">
-                    <input type="text" name="location" placeholder="Location/Faculty" required style="padding:10px;">
+                    <input type="number" step="0.01" name="salary" placeholder="Rate RM" required style="padding:10px;">
+                    
+                    <select name="location" required style="padding:10px;">
+                        <option value="" disabled selected>Select Location/Faculty</option>
+                        <option value="FTMK">FTMK</option>
+                        <option value="FTKEK">FTKEK</option>
+                        <option value="FTKIP">FTKIP</option>
+                        <option value="FTKM">FTKM</option>
+                        <option value="FPTT">FPTT</option>
+                        <option value="FTKE">FTKE</option>
+                        <option value="FAIX">FAIX</option>
+                    </select>
+
                     <input type="text" name="description" placeholder="Short Description" required style="padding:10px; flex-grow: 1;">
                     <button type="submit" class="apply-btn" style="padding: 10px 20px;">Post Job</button>
                 </form>
@@ -75,7 +86,7 @@ $jobs_result = $conn->query($jobs_sql);
                         <tr>
                             <th>Job Title</th>
                             <th>Location</th>
-                            <th>Rate (RM/H)</th>
+                            <th>Rate (RM)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

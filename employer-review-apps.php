@@ -14,6 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['app_id'])) {
     
     $update_sql = "UPDATE application SET status='$status' WHERE application_id='$app_id'";
     $conn->query($update_sql);
+
+    if ($status == 'Approved') {
+        $get_job = $conn->query("SELECT job_id FROM application WHERE application_id='$app_id'");
+        if($get_job->num_rows > 0) {
+            $job_row = $get_job->fetch_assoc();
+            $approved_job_id = $job_row['job_id'];
+            
+            $conn->query("UPDATE job SET status='Closed' WHERE job_id='$approved_job_id'");
+            $conn->query("UPDATE application SET status='Rejected' WHERE job_id='$approved_job_id' AND application_id != '$app_id' AND status='Pending'");
+        }
+    }
+
     header("Location: employer-review-apps.php");
     exit();
 }
@@ -36,7 +48,7 @@ $result = $conn->query($sql);
 <body class="dashboard-body">
     <header class="dashboard-header">
         <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo $_SESSION['name']; ?></div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
     </header>
 
     <div class="dashboard-container">

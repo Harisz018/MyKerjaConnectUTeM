@@ -30,13 +30,13 @@ $result = $conn->query($sql);
 </div>
 
 <div class="dashboard-container">
-    <div class="sidebar">
-        <a href="admin-dashboard.php">Dashboard</a>
-        <a href="admin-users.php">Manage Users</a>
-        <a href="admin-vacancies.php">Monitor Vacancies</a>
-        <a href="admin-reports.php">System Reports</a>
-        <a href="logout.php">Sign Out</a>
-    </div>
+    <aside class="sidebar">
+            <a href="admin-dashboard.php">Dashboard</a>
+            <a href="admin-users.php">Manage Users</a>
+            <a href="admin-vacancies.php" class="active" style="background: #e0eafc; color: #0056b3;">Monitor Vacancies</a>
+            <a href="admin-reports.php">System Reports</a>
+            <a href="logout.php">Sign Out</a>
+        </aside>
 
     <div class="dashboard-content">
         <h1>Monitor Vacancies</h1>

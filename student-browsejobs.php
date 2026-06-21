@@ -22,25 +22,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['apply_job_id'])) {
         $insert_sql = "INSERT INTO application (application_id, apply_date, status, user_id, job_id) 
                        VALUES ('$app_id', '$apply_date', 'Pending', '$user_id', '$job_id')";
         if ($conn->query($insert_sql) === TRUE) {
-            echo "<script>alert('Application submitted successfully!');</script>";
-        } else {
-            echo "<script>alert('Error applying: " . $conn->error . "');</script>";
+            echo "<script>alert('Application submitted successfully!'); window.location.href='student-browsejobs.php';</script>";
         }
-    } else {
-        echo "<script>alert('You have already applied for this job.');</script>";
     }
 }
 
-$jobs_sql = "SELECT * FROM job ORDER BY job_id DESC";
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancel_job_id'])) {
+    $cancel_id = $conn->real_escape_string($_POST['cancel_job_id']);
+    $conn->query("DELETE FROM application WHERE job_id='$cancel_id' AND user_id='$user_id'");
+    echo "<script>alert('Application cancelled.'); window.location.href='student-browsejobs.php';</script>";
+}
+
+$applied_jobs = [];
+$app_chk = $conn->query("SELECT job_id FROM application WHERE user_id='$user_id'");
+while($ac = $app_chk->fetch_assoc()){
+    $applied_jobs[] = $ac['job_id'];
+}
+
+$search_keyword = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$faculty_filter = isset($_GET['faculty']) ? $conn->real_escape_string($_GET['faculty']) : '';
+
+$jobs_sql = "SELECT * FROM job WHERE status = 'Active'";
+
+if (!empty($search_keyword)) {
+    $jobs_sql .= " AND (title LIKE '%$search_keyword%' OR description LIKE '%$search_keyword%')";
+}
+if (!empty($faculty_filter)) {
+    $jobs_sql .= " AND location LIKE '%$faculty_filter%'";
+}
+
+$jobs_sql .= " ORDER BY job_id DESC";
 $jobs_result = $conn->query($jobs_sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Jobs | MyKerjaConnect UTeM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-body">
@@ -53,21 +71,29 @@ $jobs_result = $conn->query($jobs_sql);
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
             <a href="student-dashboard.php">Dashboard</a>
-            <a href="student-browsejobs.php" style="background: #e0eafc; color: #0056b3;">Browse Jobs</a>
+            <a href="student-browsejobs.php" style="background: #e0eafc; color: #0056b3;" class="active">Browse Jobs</a>
             <a href="student-applications.php">Applications</a>
             <a href="student-profile.php">Profile</a>
             <a href="logout.php" id="signOutBtn">Sign Out</a>
         </nav>
 
         <main class="dashboard-content">
-            <section class="filter-section">
-                <input type="text" placeholder="Search Jobs">
+            <form action="student-browsejobs.php" method="GET" class="filter-section" style="grid-template-columns: 2fr 1fr auto;">
+                <input type="text" name="search" placeholder="Search Jobs..." value="<?php echo htmlspecialchars($search_keyword); ?>">
+                
                 <select name="faculty">
-                    <option value="" disabled selected>Select Location</option>
-                    <option value="ftmk">FTMK</option>
-                    <option value="ftkek">FTKEK</option>
+                    <option value="" selected>All Locations</option>
+                    <option value="FTMK" <?php if($faculty_filter == 'FTMK') echo 'selected'; ?>>FTMK</option>
+                    <option value="FTKEK" <?php if($faculty_filter == 'FTKEK') echo 'selected'; ?>>FTKEK</option>
+                    <option value="FTKIP" <?php if($faculty_filter == 'FTKIP') echo 'selected'; ?>>FTKIP</option>
+                    <option value="FTKM" <?php if($faculty_filter == 'FTKM') echo 'selected'; ?>>FTKM</option>
+                    <option value="FPTT" <?php if($faculty_filter == 'FPTT') echo 'selected'; ?>>FPTT</option>
+                    <option value="FTKE" <?php if($faculty_filter == 'FTKE') echo 'selected'; ?>>FTKE</option>
+                    <option value="FAIX" <?php if($faculty_filter == 'FAIX') echo 'selected'; ?>>FAIX</option>
                 </select>
-            </section>
+                
+                <button type="submit" style="padding: 12px 25px;">Search</button>
+            </form>
 
             <section class="job-list-container">
                 <?php
@@ -79,14 +105,23 @@ $jobs_result = $conn->query($jobs_sql);
                         echo 'Rate: RM' . htmlspecialchars($row['salary']) . '/H <br>';
                         echo '<p>' . htmlspecialchars($row['description']) . '</p>';
                         echo '</div>';
-                        echo '<form action="student-browsejobs.php" method="POST" style="margin:0;">';
-                        echo '<input type="hidden" name="apply_job_id" value="' . $row['job_id'] . '">';
-                        echo '<button type="submit" class="apply-btn">Apply</button>';
-                        echo '</form>';
+                        
+                        if (in_array($row['job_id'], $applied_jobs)) {
+                            echo '<form action="student-browsejobs.php" method="POST" style="margin:0;">';
+                            echo '<input type="hidden" name="cancel_job_id" value="' . $row['job_id'] . '">';
+                            echo '<button type="submit" class="apply-btn" style="background-color: #dc3545;" onclick="return confirm(\'Cancel this application?\');">Cancel</button>';
+                            echo '</form>';
+                        } else {
+                            echo '<form action="student-browsejobs.php" method="POST" style="margin:0;">';
+                            echo '<input type="hidden" name="apply_job_id" value="' . $row['job_id'] . '">';
+                            echo '<button type="submit" class="apply-btn">Apply</button>';
+                            echo '</form>';
+                        }
+                        
                         echo '</div>';
                     }
                 } else {
-                    echo "<p>No jobs available at the moment.</p>";
+                    echo "<p>No active jobs available matching your search.</p>";
                 }
                 ?>
             </section>
