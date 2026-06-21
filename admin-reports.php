@@ -19,6 +19,7 @@ $total_jobs = $conn->query("SELECT COUNT(*) AS total FROM job WHERE status='Acti
     <meta charset="UTF-8">
     <title>Admin System Reports</title>
     <link rel="stylesheet" href="design.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body class="dashboard-body">

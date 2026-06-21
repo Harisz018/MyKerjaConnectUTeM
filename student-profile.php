@@ -36,6 +36,7 @@ $user_data = $user_result->fetch_assoc();
 <body class="dashboard-body">
 
     <header class="dashboard-header">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div class="logo">MyKerjaConnectUTeM</div>
         <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($user_data['name']); ?></div>
     </header>

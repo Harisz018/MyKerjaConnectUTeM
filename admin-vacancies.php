@@ -21,6 +21,7 @@ $result = $conn->query($sql);
 <head>
     <title>Admin Monitor Vacancies</title>
     <link rel="stylesheet" href="design.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="dashboard-body">
 

@@ -20,6 +20,14 @@ $pending_sql = "SELECT COUNT(a.application_id) as pending_apps
                 WHERE j.employer_id = '$employer_id' AND a.status = 'Pending'";
 $pending_res = $conn->query($pending_sql);
 $pending_apps = $pending_res->fetch_assoc()['pending_apps'];
+
+$payout_sql = "SELECT SUM(j.salary) as total_payout 
+               FROM application a 
+               JOIN job j ON a.job_id = j.job_id 
+               WHERE j.employer_id = '$employer_id' AND a.payment_status = 'Paid'";
+$payout_res = $conn->query($payout_sql);
+$total_payout = $payout_res->fetch_assoc()['total_payout'];
+$total_payout = $total_payout ? $total_payout : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +40,7 @@ $pending_apps = $pending_res->fetch_assoc()['pending_apps'];
 
     <header class="dashboard-header">
         <div class="logo">MyKerjaConnectUTeM</div>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($employer_name); ?></div>
     </header>
 
@@ -41,7 +50,7 @@ $pending_apps = $pending_res->fetch_assoc()['pending_apps'];
             <a href="employer-manage-vacancies.php">Manage Vacancies</a>
             <a href="employer-review-apps.php">Review Apps</a>
             <a href="employer-profile.php">Profile</a>
-            <a href="logout.php" id="signOutBtn">Sign Out</a>
+            <a href="logout.php">Sign Out</a>
         </aside>
 
         <main class="dashboard-content">
@@ -58,7 +67,7 @@ $pending_apps = $pending_res->fetch_assoc()['pending_apps'];
                 </div>
                 <div class="stat-card" style="padding: 20px;">
                     <h3 style="font-size: 1rem; color: #555;">Total Distributed Payout</h3>
-                    <h1 style="margin-top: 10px; font-size: 1.8rem; color: #333;">( RM 0.00 )</h1>
+                    <h1 style="margin-top: 10px; font-size: 1.8rem; color: #333;">( RM <?php echo number_format((float)$total_payout, 2, '.', ''); ?> )</h1>
                 </div>
             </div>
 

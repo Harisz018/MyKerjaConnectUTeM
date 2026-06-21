@@ -34,15 +34,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     } elseif ($role == 'admin') {
-        $sql = "SELECT * FROM admin WHERE email='$email' AND password='$password_input'";
+        // Logik Admin telah dikemas kini untuk menyokong Hash Password
+        $sql = "SELECT * FROM admin WHERE email='$email'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $_SESSION['admin_id'] = $row['admin_id'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['role'] = 'admin';
-            header("Location: admin-dashboard.php");
-            exit();
+            // Menggunakan password_verify untuk memadankan password yang ditaip dengan hash di database
+            if (password_verify($password_input, $row['password'])) {
+                $_SESSION['admin_id'] = $row['admin_id'];
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['role'] = 'admin';
+                header("Location: admin-dashboard.php");
+                exit();
+            }
         }
     }
     echo "<script>alert('Access Denied: Credentials do not match.');</script>";

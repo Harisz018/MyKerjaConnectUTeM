@@ -30,13 +30,19 @@ if (isset($_GET['delete_id'])) {
     exit();
 }
 
-$jobs_sql = "SELECT * FROM job WHERE employer_id = '$employer_id' ORDER BY title ASC";
+$jobs_sql = "SELECT j.*, a.status AS app_status, a.payment_status, wp.file_name AS proof_file 
+             FROM job j 
+             LEFT JOIN application a ON j.job_id = a.job_id AND a.status = 'Approved'
+             LEFT JOIN work_proof wp ON a.application_id = wp.application_id
+             WHERE j.employer_id = '$employer_id' 
+             ORDER BY j.title ASC";
 $jobs_result = $conn->query($jobs_sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Vacancies | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -61,7 +67,7 @@ $jobs_result = $conn->query($jobs_sql);
                 <form action="employer-manage-vacancies.php" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <input type="hidden" name="action" value="add_job">
                     <input type="text" name="title" placeholder="Job Title (e.g. Lab Assistant)" required style="padding:10px;">
-                    <input type="number" step="0.01" name="salary" placeholder="Rate RM" required style="padding:10px;">
+                    <input type="number" step="0.01" name="salary" placeholder="Rate RM/H" required style="padding:10px;">
                     
                     <select name="location" required style="padding:10px;">
                         <option value="" disabled selected>Select Location/Faculty</option>
@@ -86,7 +92,8 @@ $jobs_result = $conn->query($jobs_sql);
                         <tr>
                             <th>Job Title</th>
                             <th>Location</th>
-                            <th>Rate (RM)</th>
+                            <th>Rate (RM/H)</th>
+                            <th>Work Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -98,6 +105,21 @@ $jobs_result = $conn->query($jobs_sql);
                                 echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['location']) . "</td>";
                                 echo "<td>RM " . htmlspecialchars($row['salary']) . "</td>";
+                                
+                                echo "<td>";
+                                if ($row['app_status'] == 'Approved') {
+                                    if ($row['payment_status'] == 'Paid') {
+                                        echo "<span style='color: #28a745; font-weight: 600;'>✔ Completed & Paid</span>";
+                                    } elseif (!empty($row['proof_file'])) {
+                                        echo "<span style='color: #17a2b8; font-weight: 600;'>📁 Work Submitted</span>";
+                                    } else {
+                                        echo "<span style='color: #ff9800; font-weight: 600;'>⏳ In Progress</span>";
+                                    }
+                                } else {
+                                    echo "<span style='color: #007bff; font-weight: 600;'>🟢 Open (Hiring)</span>";
+                                }
+                                echo "</td>";
+
                                 echo "<td>
                                         <a href='employer-manage-vacancies.php?delete_id=" . $row['job_id'] . "' 
                                            style='padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545; color: white; text-decoration: none; border-radius:4px;' 
@@ -106,7 +128,7 @@ $jobs_result = $conn->query($jobs_sql);
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='4'>You have not posted any jobs yet.</td></tr>";
+                            echo "<tr><td colspan='5'>You have not posted any jobs yet.</td></tr>";
                         }
                         ?>
                     </tbody>

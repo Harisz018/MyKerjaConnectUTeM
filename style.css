@@ -227,17 +227,21 @@ footer a:hover {
     border-right: 2px solid #eee; 
 }
 
-.sidebar a { 
-    text-decoration: none; 
-    color: #333; 
-    padding: 15px; 
-    border-radius: 8px; 
-    font-weight: 600; 
+.sidebar a {
+    text-decoration: none;
+    color: #0056b3 !important; 
+    background-color: #f0f7ff !important; 
+    padding: 12px 25px !important;
+    border-radius: 50px !important; 
+    font-weight: 600;
+    margin-bottom: 8px; 
+    transition: all 0.3s ease;
+    display: block;
 }
 
-.sidebar a:hover { 
-    background: #e0eafc; 
-    color: #0056b3; 
+.sidebar a:hover, .sidebar a.active {
+    background-color: #0056b3 !important; 
+    color: #ffffff !important;
 }
 
 .dashboard-content { 
@@ -397,7 +401,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-    /* Header adjustments */
     header {
         flex-direction: column;
         gap: 15px;
@@ -415,7 +418,6 @@ footer a:hover {
         font-size: 0.85rem;
     }
 
-    /* Search box adjustments */
     input[type="text"] {
         width: 100%;
     }
@@ -424,13 +426,11 @@ footer a:hover {
         flex-direction: column;
     }
 
-    /* Categories Grid: 1 column instead of 3 */
     .categories {
         grid-template-columns: 1fr;
         padding: 0 5% 40px 5%;
     }
 
-    /* Dashboard Layout: Sidebar becomes a top nav or stacks */
     .dashboard-container {
         flex-direction: column;
     }

@@ -10,34 +10,38 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
 $user_id = $_SESSION['user_id'];
 $name = $_SESSION['name'];
 
-$total_sql = "SELECT COUNT(*) as total FROM application WHERE user_id = '$user_id'";
-$total_result = $conn->query($total_sql);
-$total_apps = $total_result->fetch_assoc()['total'];
+$app_count_sql = "SELECT COUNT(*) as total FROM application WHERE user_id='$user_id'";
+$total_applied = $conn->query($app_count_sql)->fetch_assoc()['total'];
 
-$approved_sql = "SELECT COUNT(*) as approved FROM application WHERE user_id = '$user_id' AND status = 'Approved'";
-$approved_result = $conn->query($approved_sql);
-$approved_apps = $approved_result->fetch_assoc()['approved'];
+$appr_count_sql = "SELECT COUNT(*) as total FROM application WHERE user_id='$user_id' AND status='Approved'";
+$total_approved = $conn->query($appr_count_sql)->fetch_assoc()['total'];
 
+$earn_sql = "SELECT SUM(j.salary) as total_earned 
+             FROM application a 
+             JOIN job j ON a.job_id = j.job_id 
+             WHERE a.user_id = '$user_id' AND a.payment_status = 'Paid'";
+$earn_res = $conn->query($earn_sql);
+$total_earned = $earn_res->fetch_assoc()['total_earned'];
+$total_earned = $total_earned ? $total_earned : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | MyKerjaConnect UTeM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Student Dashboard | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-body">
 
     <header class="dashboard-header">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($name); ?></div>
+        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($name); ?></div>
     </header>
 
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
-            <a href="student-dashboard.php" style="background: #e0eafc; color: #0056b3;">Dashboard</a>
+            <a href="student-dashboard.php" class="active" style="background: #e0eafc; color: #0056b3;">Dashboard</a>
             <a href="student-browsejobs.php">Browse Jobs</a>
             <a href="student-applications.php">Applications</a>
             <a href="student-profile.php">Profile</a>
@@ -45,26 +49,28 @@ $approved_apps = $approved_result->fetch_assoc()['approved'];
         </nav>
 
         <main class="dashboard-content">
-            <section class="performance-summary">
-                <h2>Student Performance Summary Monitor</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">Total Applied<br><strong>( <?php echo $total_apps; ?> )</strong></div>
-                    <div class="stat-card">Approved<br><strong>( <?php echo $approved_apps; ?> )</strong></div>
-                    <div class="stat-card">Total Earnings<br><strong>( RM 0.00 )</strong></div>
-                </div>
-            </section>
+            <h2>Student Performance Summary Monitor</h2>
 
-            <section class="alerts-section">
-                <h3>System Broadcast Alerts & Updates</h3>
-                <div class="updates-box">
-                    <p>Updates: Welcome to the new MyKerjaConnect system!</p>
+            <div class="stats-grid">
+                <div class="stat-card" style="padding: 20px;">
+                    <h3 style="font-size: 1rem; color: #555;">Total Applied</h3>
+                    <h1 style="margin-top: 10px; font-size: 1.8rem; color: #333;">( <?php echo $total_applied; ?> )</h1>
                 </div>
-            </section>
+                <div class="stat-card" style="padding: 20px;">
+                    <h3 style="font-size: 1rem; color: #555;">Approved</h3>
+                    <h1 style="margin-top: 10px; font-size: 1.8rem; color: #333;">( <?php echo $total_approved; ?> )</h1>
+                </div>
+                <div class="stat-card" style="padding: 20px;">
+                    <h3 style="font-size: 1rem; color: #555;">Total Earnings</h3>
+                    <h1 style="margin-top: 10px; font-size: 1.8rem; color: #333;">( RM <?php echo number_format((float)$total_earned, 2, '.', ''); ?> )</h1>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 30px;">System Broadcast Alerts & Updates</h2>
+            <div class="updates-box" style="margin-top: 20px; padding: 20px;">
+                <p style="color: #333;">Updates: Welcome to the new MyKerjaConnect system!</p>
+            </div>
         </main>
     </div>
-    
-    <footer class="dashboard-footer">
-        <a href="#">Contact Us</a>
-    </footer>
 </body>
 </html>
