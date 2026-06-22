@@ -12,7 +12,7 @@ $user_id = $_SESSION['user_id'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $conn->real_escape_string($_POST['phone_no']);
     $update_sql = "UPDATE user SET phone_no='$phone' WHERE user_id='$user_id'";
-    
+
     if ($conn->query($update_sql) === TRUE) {
         echo "<script>alert('Profile updated successfully!');</script>";
     } else {
@@ -26,19 +26,19 @@ $user_data = $user_result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile | MyKerjaConnect UTeM</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body class="dashboard-body">
 
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($user_data['name']); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
@@ -51,7 +51,7 @@ $user_data = $user_result->fetch_assoc();
 
         <main class="dashboard-content">
             <h2>Manage Profile & Payment Attributes</h2>
-            
+
             <form action="student-profile.php" method="POST" class="profile-grid">
                 <div class="profile-section">
                     <h3>Academic & Personal Data</h3>
@@ -80,5 +80,9 @@ $user_data = $user_result->fetch_assoc();
             </form>
         </main>
     </div>
+    <footer>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+    </footer>
 </body>
+
 </html>

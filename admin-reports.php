@@ -1,5 +1,7 @@
 <?php
 session_start();
+// KOD INI WAJIB ADA UNTUK BETULKAN MASA MALAYSIA
+date_default_timezone_set('Asia/Kuala_Lumpur'); 
 require 'db_connect.php';
 
 if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
@@ -12,87 +14,197 @@ $e_count = $conn->query("SELECT COUNT(*) AS total FROM employer")->fetch_assoc()
 $total_users = $u_count + $e_count;
 
 $total_jobs = $conn->query("SELECT COUNT(*) AS total FROM job WHERE status='Active'")->fetch_assoc()['total'];
+
+$fac_labels = [];
+$fac_counts = [];
+$fac_sql = "SELECT location, COUNT(*) AS total FROM job WHERE status='Active' GROUP BY location ORDER BY total DESC";
+$fac_res = $conn->query($fac_sql);
+while ($f_row = $fac_res->fetch_assoc()) {
+    $fac_labels[] = $f_row['location'];
+    $fac_counts[] = (int)$f_row['total'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin System Reports</title>
     <link rel="stylesheet" href="design.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body class="dashboard-body">
 
-<header class="dashboard-header">
-    <div class="logo">MyKerjaConnectUTeM</div>
-    <div style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
-</header>
+    <?php include 'headerDashboard.php'; ?>
 
-<div class="dashboard-container">
-    <aside class="sidebar">
+    <div class="dashboard-container">
+        <aside class="sidebar">
             <a href="admin-dashboard.php">Dashboard</a>
             <a href="admin-users.php">Manage Users</a>
-            <a href="admin-vacancies.php">Monitor Vacancies</a>
+            <a href="admin-vacancies.php">Manage Jobs</a>
             <a href="admin-reports.php" class="active" style="background: #e0eafc; color: #0056b3;">System Reports</a>
             <a href="logout.php">Sign Out</a>
         </aside>
 
-    <div class="dashboard-content">
-        
-        <div id="report-content" style="padding: 30px; background: white; border-radius: 10px; border: 1px solid #ddd;">
-            <h1 style="text-align: center; color: #0056b3; margin-bottom: 10px;">Laporan Sistem MyKerjaConnect UTeM</h1>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Tarikh Janaan: <?php echo date('d F Y, H:i A'); ?></p>
-            <hr style="margin-bottom: 30px; border: 1px solid #eee;">
-            
-            <h2 style="margin-bottom: 15px;">Ringkasan Data (Summary Dashboard)</h2>
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                <p style="font-size: 1.1rem; margin-bottom: 10px;"><b>Jumlah Pengguna Berdaftar (Pelajar & Majikan):</b> <?php echo $total_users; ?> pengguna</p>
-                <p style="font-size: 1.1rem;"><b>Jumlah Pekerjaan Aktif (Active Vacancies):</b> <?php echo $total_jobs; ?> jawatan</p>
+        <div class="dashboard-content">
+
+            <div id="report-content" style="padding: 30px; background: white; border-radius: 10px; border: 1px solid #ddd;">
+                <h1 style="text-align: center; color: #0056b3; margin-bottom: 10px;">MyKerjaConnect UTeM System Report</h1>
+                
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">Date Generated: <span id="realTimeClock"><?php echo date('d F Y, h:i A'); ?></span></p>
+                
+                <hr style="margin-bottom: 30px; border: 1px solid #eee;">
+
+                <h2 style="margin-bottom: 15px;">Data Summary </h2>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;"><b>Total Registered Users (Students & Employers):</b> <?php echo $total_users; ?> users</p>
+                    <p style="font-size: 1.1rem;"><b>Total Active Jobs :</b> <?php echo $total_jobs; ?> positions</p>
+                </div>
+
+                <h2 style="margin-bottom: 20px;">System Data Analysis Visualization</h2>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 30px;">
+                    <div style="flex: 1; min-width: 280px; max-width: 400px; border: 1px solid #eaeaea; padding: 15px; border-radius: 8px; background: #fff;">
+                        <h4 style="text-align: center; margin-bottom: 10px; color: #555;">Registered Users Breakdown</h4>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="userChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div style="flex: 1; min-width: 280px; max-width: 500px; border: 1px solid #eaeaea; padding: 15px; border-radius: 8px; background: #fff;">
+                        <h4 style="text-align: center; margin-bottom: 10px; color: #555;">Active Jobs by Faculty / Location</h4>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="facultyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; font-size: 0.9rem; color: #aaa; margin-top: 40px;">This report is automatically generated by the MyKerjaConnect UTeM system.</p>
             </div>
-            
-            <br>
-            <p style="text-align: center; font-size: 0.9rem; color: #aaa; margin-top: 40px;">Laporan ini dijana secara automatik oleh sistem MyKerjaConnect UTeM.</p>
-        </div>
 
-        <br><br>
-        <h1>Report Generation Options</h1>
-        <div class="updates-box">
-            <p><b>Report Format:</b> PDF</p>
-            <p>Data metrics are synchronised with your Apache server MySQL deployment.</p>
+            <br><br>
+
+            <button class="apply-btn" onclick="generatePDF()" style="margin-top: 20px; padding: 12px 25px;">Generate & Export Report (PDF)</button>
+
         </div>
-        
-        <button class="apply-btn" onclick="generatePDF()" style="margin-top: 20px; padding: 12px 25px;">Generate & Export Report (PDF)</button>
-        
     </div>
-</div>
 
-<script>
-    function generatePDF() {
-        var element = document.getElementById('report-content');
-        var dashboardContent = document.querySelector('.dashboard-content');
-        var dashboardBody = document.querySelector('.dashboard-body');
-        
-        var origOverflow = dashboardContent.style.overflowY;
-        var origHeight = dashboardBody.style.height;
-
-        dashboardContent.style.overflowY = 'visible';
-        dashboardBody.style.height = 'auto';
-
-        var opt = {
-            margin:       0.5,
-            filename:     'Laporan_MyKerjaConnect.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, scrollY: 0 },
-            jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save().then(function() {
-            dashboardContent.style.overflowY = origOverflow;
-            dashboardBody.style.height = origHeight;
+    <script>
+        const ctxUser = document.getElementById('userChart').getContext('2d');
+        new Chart(ctxUser, {
+            type: 'doughnut',
+            data: {
+                labels: ['Student', 'Employer'],
+                datasets: [{
+                    data: [<?php echo $u_count; ?>, <?php echo $e_count; ?>],
+                    backgroundColor: ['#007bff', '#28a745'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
         });
-    }
-</script>
 
+        const ctxFaculty = document.getElementById('facultyChart').getContext('2d');
+        new Chart(ctxFaculty, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($fac_labels); ?>,
+                datasets: [{
+                    label: 'Jumlah Jawatan',
+                    data: <?php echo json_encode($fac_counts); ?>,
+                    backgroundColor: '#0056b3',
+                    borderColor: '#004494',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- FUNGSI JAM MASA NYATA (LIVE CLOCK) ---
+        function updateClock() {
+            const now = new Date();
+            const day = now.getDate().toString().padStart(2, '0');
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            const strHours = hours.toString().padStart(2, '0');
+            
+            const exactTime = `${day} ${month} ${year}, ${strHours}:${minutes}:${seconds} ${ampm}`;
+            
+            document.getElementById('realTimeClock').innerText = exactTime;
+        }
+
+        updateClock(); // Jalankan terus sebaik page dibuka
+        setInterval(updateClock, 1000); // Sistem akan berdetik setiap 1 saat
+        // ------------------------------------------
+
+
+        // --- FUNGSI GENERATE PDF ---
+        function generatePDF() {
+            var element = document.getElementById('report-content');
+            var dashboardContent = document.querySelector('.dashboard-content');
+            var dashboardBody = document.querySelector('.dashboard-body');
+            
+            var origOverflow = dashboardContent.style.overflowY;
+            var origHeight = dashboardBody.style.height;
+
+            dashboardContent.style.overflowY = 'visible';
+            dashboardBody.style.height = 'auto';
+
+            var opt = {
+                margin:       0.3,
+                filename:     'MyKerjaConnect_Report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, scrollY: 0, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(function() {
+                dashboardContent.style.overflowY = origOverflow;
+                dashboardBody.style.height = origHeight;
+            });
+        }
+    </script>
+<footer>
+            <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+        </footer>
 </body>
+
 </html>

@@ -11,16 +11,16 @@ $employer_id = $_SESSION['employer_id'];
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['app_id'])) {
     $app_id = $conn->real_escape_string($_POST['app_id']);
     $status = $conn->real_escape_string($_POST['status']);
-    
+
     $update_sql = "UPDATE application SET status='$status' WHERE application_id='$app_id'";
     $conn->query($update_sql);
 
     if ($status == 'Approved') {
         $get_job = $conn->query("SELECT job_id FROM application WHERE application_id='$app_id'");
-        if($get_job->num_rows > 0) {
+        if ($get_job->num_rows > 0) {
             $job_row = $get_job->fetch_assoc();
             $approved_job_id = $job_row['job_id'];
-            
+
             $conn->query("UPDATE job SET status='Closed' WHERE job_id='$approved_job_id'");
             $conn->query("UPDATE application SET status='Rejected' WHERE job_id='$approved_job_id' AND application_id != '$app_id' AND status='Pending'");
         }
@@ -47,17 +47,17 @@ $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Applications | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body class="dashboard-body">
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <aside class="sidebar">
@@ -84,12 +84,12 @@ $result = $conn->query($sql);
                     <tbody>
                         <?php
                         if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
+                            while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . htmlspecialchars($row['student_name']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['job_title']) . " (RM" . htmlspecialchars($row['salary']) . ")</td>";
                                 echo "<td><strong>" . htmlspecialchars($row['status']) . "</strong></td>";
-                                
+
                                 echo "<td>";
                                 if (!empty($row['proof_file'])) {
                                     echo "<a href='uploads/" . htmlspecialchars($row['proof_file']) . "' target='_blank' style='background-color:#17a2b8; color:white; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:0.85rem;'>View Report</a>";
@@ -101,12 +101,12 @@ $result = $conn->query($sql);
                                 echo "<td>";
                                 if ($row['status'] == 'Pending') {
                                     echo "<form action='employer-review-apps.php' method='POST' style='display:inline;'>
-                                            <input type='hidden' name='app_id' value='".$row['application_id']."'>
+                                            <input type='hidden' name='app_id' value='" . $row['application_id'] . "'>
                                             <input type='hidden' name='status' value='Approved'>
                                             <button type='submit' style='padding: 6px 12px; font-size: 0.85rem; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-right: 5px; cursor: pointer;'>Approve</button>
                                           </form>";
                                     echo "<form action='employer-review-apps.php' method='POST' style='display:inline;'>
-                                            <input type='hidden' name='app_id' value='".$row['application_id']."'>
+                                            <input type='hidden' name='app_id' value='" . $row['application_id'] . "'>
                                             <input type='hidden' name='status' value='Rejected'>
                                             <button type='submit' style='padding: 6px 12px; font-size: 0.85rem; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;'>Reject</button>
                                           </form>";
@@ -115,7 +115,7 @@ $result = $conn->query($sql);
                                         echo "<span style='color: #28a745; font-weight: bold; font-size: 0.85rem;'>✔ Payment Completed</span>";
                                     } else {
                                         echo "<form action='employer-review-apps.php' method='POST' style='display:inline;'>
-                                                <input type='hidden' name='pay_app_id' value='".$row['application_id']."'>
+                                                <input type='hidden' name='pay_app_id' value='" . $row['application_id'] . "'>
                                                 <button type='submit' style='padding: 6px 12px; font-size: 0.85rem; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;' onclick='return confirm(\"Confirm payment of RM " . $row['salary'] . " to student?\");'>Make Payment (RM " . $row['salary'] . ")</button>
                                               </form>";
                                     }
@@ -133,5 +133,9 @@ $result = $conn->query($sql);
             </div>
         </main>
     </div>
+    <footer>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+    </footer>
 </body>
+
 </html>

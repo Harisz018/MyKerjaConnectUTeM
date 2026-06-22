@@ -45,12 +45,10 @@ $jobs_result = $conn->query($jobs_sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Vacancies | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 <body class="dashboard-body">
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <aside class="sidebar">
@@ -136,5 +134,8 @@ $jobs_result = $conn->query($jobs_sql);
             </div>
         </main>
     </div>
+    <footer>
+            <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+        </footer>
 </body>
 </html>
