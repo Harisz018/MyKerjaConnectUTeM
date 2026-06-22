@@ -12,10 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $company = $conn->real_escape_string($_POST['company_name']);
     $email = $conn->real_escape_string($_POST['email']);
     $phone = $conn->real_escape_string($_POST['phone_no']);
-    
+
     $update_sql = "UPDATE employer SET company_name='$company', email='$email', phone_no='$phone' WHERE employer_id='$employer_id'";
     if ($conn->query($update_sql) === TRUE) {
-        $_SESSION['name'] = $company; 
+        $_SESSION['name'] = $company;
         echo "<script>alert('Profile updated successfully!');</script>";
     }
 }
@@ -26,17 +26,17 @@ $emp_data = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employer Profile | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body class="dashboard-body">
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <aside class="sidebar">
@@ -83,5 +83,9 @@ $emp_data = $result->fetch_assoc();
             </form>
         </main>
     </div>
+    <footer>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+    </footer>
 </body>
+
 </html>

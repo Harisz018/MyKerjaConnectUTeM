@@ -12,7 +12,7 @@ $name = $_SESSION['name'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['apply_job_id'])) {
     $job_id = $conn->real_escape_string($_POST['apply_job_id']);
-    $app_id = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11); 
+    $app_id = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 11);
     $apply_date = date('Y-m-d');
 
     $check_sql = "SELECT * FROM application WHERE user_id='$user_id' AND job_id='$job_id'";
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancel_job_id'])) {
 
 $applied_jobs = [];
 $app_chk = $conn->query("SELECT job_id FROM application WHERE user_id='$user_id'");
-while($ac = $app_chk->fetch_assoc()){
+while ($ac = $app_chk->fetch_assoc()) {
     $applied_jobs[] = $ac['job_id'];
 }
 
@@ -56,18 +56,18 @@ $jobs_result = $conn->query($jobs_sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Jobs | MyKerjaConnect UTeM</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body class="dashboard-body">
 
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($name); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
@@ -81,32 +81,32 @@ $jobs_result = $conn->query($jobs_sql);
         <main class="dashboard-content">
             <form action="student-browsejobs.php" method="GET" class="filter-section" style="grid-template-columns: 2fr 1fr auto;">
                 <input type="text" name="search" placeholder="Search Jobs..." value="<?php echo htmlspecialchars($search_keyword); ?>">
-                
+
                 <select name="faculty">
                     <option value="" selected>All Locations</option>
-                    <option value="FTMK" <?php if($faculty_filter == 'FTMK') echo 'selected'; ?>>FTMK</option>
-                    <option value="FTKEK" <?php if($faculty_filter == 'FTKEK') echo 'selected'; ?>>FTKEK</option>
-                    <option value="FTKIP" <?php if($faculty_filter == 'FTKIP') echo 'selected'; ?>>FTKIP</option>
-                    <option value="FTKM" <?php if($faculty_filter == 'FTKM') echo 'selected'; ?>>FTKM</option>
-                    <option value="FPTT" <?php if($faculty_filter == 'FPTT') echo 'selected'; ?>>FPTT</option>
-                    <option value="FTKE" <?php if($faculty_filter == 'FTKE') echo 'selected'; ?>>FTKE</option>
-                    <option value="FAIX" <?php if($faculty_filter == 'FAIX') echo 'selected'; ?>>FAIX</option>
+                    <option value="FTMK" <?php if ($faculty_filter == 'FTMK') echo 'selected'; ?>>FTMK</option>
+                    <option value="FTKEK" <?php if ($faculty_filter == 'FTKEK') echo 'selected'; ?>>FTKEK</option>
+                    <option value="FTKIP" <?php if ($faculty_filter == 'FTKIP') echo 'selected'; ?>>FTKIP</option>
+                    <option value="FTKM" <?php if ($faculty_filter == 'FTKM') echo 'selected'; ?>>FTKM</option>
+                    <option value="FPTT" <?php if ($faculty_filter == 'FPTT') echo 'selected'; ?>>FPTT</option>
+                    <option value="FTKE" <?php if ($faculty_filter == 'FTKE') echo 'selected'; ?>>FTKE</option>
+                    <option value="FAIX" <?php if ($faculty_filter == 'FAIX') echo 'selected'; ?>>FAIX</option>
                 </select>
-                
+
                 <button type="submit" style="padding: 12px 25px;">Search</button>
             </form>
 
             <section class="job-list-container">
                 <?php
                 if ($jobs_result->num_rows > 0) {
-                    while($row = $jobs_result->fetch_assoc()) {
+                    while ($row = $jobs_result->fetch_assoc()) {
                         echo '<div class="job-card">';
                         echo '<div class="info">';
                         echo '<strong>' . htmlspecialchars($row['title']) . ' (' . htmlspecialchars($row['location']) . ')</strong><br>';
-                        echo 'Rate: RM' . htmlspecialchars($row['salary']) . '/H <br>';
+                        echo 'Rate: RM' . htmlspecialchars($row['salary']) . '<br>';
                         echo '<p>' . htmlspecialchars($row['description']) . '</p>';
                         echo '</div>';
-                        
+
                         if (in_array($row['job_id'], $applied_jobs)) {
                             echo '<form action="student-browsejobs.php" method="POST" style="margin:0;">';
                             echo '<input type="hidden" name="cancel_job_id" value="' . $row['job_id'] . '">';
@@ -118,7 +118,7 @@ $jobs_result = $conn->query($jobs_sql);
                             echo '<button type="submit" class="apply-btn">Apply</button>';
                             echo '</form>';
                         }
-                        
+
                         echo '</div>';
                     }
                 } else {
@@ -128,5 +128,9 @@ $jobs_result = $conn->query($jobs_sql);
             </section>
         </main>
     </div>
+    <footer>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+    </footer>
 </body>
+
 </html>

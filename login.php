@@ -52,45 +52,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | MyKerjaConnect UTeM</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
+
 <body>
 
-    <header>
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <nav>
-            <a href="index.php">Home</a>
-            <a href="register.php">Register</a>
-            <a href="login.php">Login</a>
-        </nav>
-    </header>
+    <?php include 'headerPublic.php'; ?>
 
     <main class="form-container">
         <div class="registration-card">
             <h2>Login</h2>
-            <form action="login.php" method="POST">
+
+            <form action="login.php" method="POST" onsubmit="return validateLogin()">
                 <div class="radio-group">
                     <label><input type="radio" name="userRole" value="student" checked> Student</label>
                     <label><input type="radio" name="userRole" value="admin"> Admin</label>
                     <label><input type="radio" name="userRole" value="employer"> Employer</label>
                 </div>
-                
-                <input type="email" name="email" placeholder="UTeM Email Address" required>
-                <input type="password" name="password" placeholder="Password" required>
-                
+
+                <input type="email" name="email" id="loginEmail" placeholder="UTeM Email Address" required>
+                <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+
                 <button type="submit" class="submit-btn">Sign In</button>
             </form>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
     </footer>
 
+    <script>
+        function validateLogin() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+
+
+            if (password.length < 6) {
+                alert("Invalid Login: Password must be at least 6 characters.");
+                return false;
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                alert("Invalid Format: Please enter a valid email address.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
 </body>
+
 </html>

@@ -37,14 +37,12 @@ $total_payout = $total_payout ? $total_payout : 0.00;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employer Dashboard | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 
 <body class="dashboard-body">
 
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($employer_name); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <aside class="sidebar">
@@ -79,6 +77,9 @@ $total_payout = $total_payout ? $total_payout : 0.00;
             </div>
         </main>
     </div>
+    <footer>
+        <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+    </footer>
 </body>
 
 </html>

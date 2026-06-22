@@ -34,7 +34,8 @@ if (isset($_GET['delete_id'])) {
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 $filter = isset($_GET['filter']) ? $conn->real_escape_string($_GET['filter']) : 'All';
 
-$query = "SELECT user_id AS id, name, email, role FROM user WHERE 1=1";
+// Menambah pilihan data user_id dan phone_no dari database
+$query = "SELECT user_id AS id, name, email, role, phone_no FROM user WHERE 1=1";
 if (!empty($search)) {
     $query .= " AND (name LIKE '%$search%' OR email LIKE '%$search%')";
 }
@@ -43,7 +44,7 @@ if ($filter === 'Student') {
 }
 
 if ($filter === 'All' || $filter === 'Employer') {
-    $emp_query = "SELECT employer_id AS id, company_name AS name, email, 'Employer' AS role FROM employer WHERE 1=1";
+    $emp_query = "SELECT employer_id AS id, company_name AS name, email, 'Employer' AS role, phone_no FROM employer WHERE 1=1";
     if (!empty($search)) {
         $emp_query .= " AND (company_name LIKE '%$search%' OR email LIKE '%$search%')";
     }
@@ -64,20 +65,17 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin User Management</title>
     <link rel="stylesheet" href="design.css">
-   
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 <body class="dashboard-body">
 
-    <header class="dashboard-header">
-        <div class="logo">MyKerjaConnectUTeM</div>
-        <div style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
-    </header>
+    <?php include 'headerDashboard.php'; ?>
 
     <div class="dashboard-container">
         <aside class="sidebar">
             <a href="admin-dashboard.php">Dashboard</a>
             <a href="admin-users.php" class="active" style="background: #e0eafc; color: #0056b3;">Manage Users</a>
-            <a href="admin-vacancies.php">Monitor Vacancies</a>
+            <a href="admin-vacancies.php">Manage Jobs</a>
             <a href="admin-reports.php">System Reports</a>
             <a href="logout.php">Sign Out</a>
         </aside>
@@ -88,7 +86,7 @@ $result = $conn->query($query);
             <form method="GET" action="admin-users.php" class="filter-section">
                 <input type="text" name="search" placeholder="Search Name/Email" value="<?php echo htmlspecialchars($search); ?>">
                 <select name="filter">
-                    <option value="All" <?php if($filter == 'All') echo 'selected'; ?>>All</option>
+                    <option value="All" <?php if($filter == 'All') echo 'selected'; ?>>All Users</option>
                     <option value="Student" <?php if($filter == 'Student') echo 'selected'; ?>>Student</option>
                     <option value="Employer" <?php if($filter == 'Employer') echo 'selected'; ?>>Employer</option>
                 </select>
@@ -98,9 +96,11 @@ $result = $conn->query($query);
             <table class="application-table" style="margin-top: 10px;">
                 <thead>
                     <tr>
+                        <th>User ID / Matric</th>
                         <th>Name</th>
                         <th>Role</th>
                         <th>Email</th>
+                        <th>Phone No</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -108,22 +108,28 @@ $result = $conn->query($query);
                     <?php
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
+                            $display_phone = !empty($row['phone_no']) ? htmlspecialchars($row['phone_no']) : '-';
                             echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['role']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                            echo "<td>" . $display_phone . "</td>";
                             echo "<td>
                                     <a href='admin-users.php?delete_id=" . $row['id'] . "' class='apply-btn' style='background-color:#dc3545; padding: 6px 12px; text-decoration:none; font-size:0.85rem; border-radius: 4px;' onclick='return confirm(\"Delete this user permanently?\");'>Delete</a>
                                   </td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='4'>No users found.</td></tr>";
+                        echo "<tr><td colspan='6'>No users found.</td></tr>";
                     }
                     ?>
                 </tbody>
             </table>
         </main>
     </div>
+    <footer>
+            <p>&copy; 2026 MyKerjaConnect UTeM | <a href="about.php">About Us</a> | <a href="#" onclick="alert('MyKerjaConnectUTeM\n\nEmail: mykerjaconnect@utem.edu.my\nPhone: 06-1234567'); return false;">Contact Us</a></p>
+        </footer>
 </body>
 </html>
