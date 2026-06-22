@@ -28,7 +28,7 @@ $user_data = $user_result->fetch_assoc();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile | MyKerjaConnect UTeM</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -36,7 +36,6 @@ $user_data = $user_result->fetch_assoc();
 <body class="dashboard-body">
 
     <header class="dashboard-header">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div class="logo">MyKerjaConnectUTeM</div>
         <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($user_data['name']); ?></div>
     </header>

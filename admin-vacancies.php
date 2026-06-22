@@ -25,10 +25,10 @@ $result = $conn->query($sql);
 </head>
 <body class="dashboard-body">
 
-<div class="dashboard-header">
-    <h1>MyKerjaConnectUTeM</h1>
-    <h2>Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></h2>
-</div>
+<header class="dashboard-header">
+    <div class="logo">MyKerjaConnectUTeM</div>
+    <div style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></div>
+</header>
 
 <div class="dashboard-container">
     <aside class="sidebar">

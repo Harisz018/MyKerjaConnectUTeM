@@ -26,15 +26,17 @@ $total_earned = $total_earned ? $total_earned : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="dashboard-body">
 
     <header class="dashboard-header">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div class="logo">MyKerjaConnectUTeM</div>
         <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($name); ?></div>
     </header>
@@ -73,4 +75,5 @@ $total_earned = $total_earned ? $total_earned : 0.00;
         </main>
     </div>
 </body>
+
 </html>

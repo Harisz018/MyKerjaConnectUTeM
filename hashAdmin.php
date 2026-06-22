@@ -7,7 +7,7 @@ require 'db_connect.php';
 // Edit the information below before running it in the browser
 // =========================================================================
 
-
+/*
 $admin_id       = "A001";                           
 $admin_name     = "Ahmad Ikhwan";                   
 $admin_email    = "D032410015@student.utem.edu.my"; 
@@ -38,7 +38,7 @@ if ($conn->query($sql) === TRUE) {
     echo "<p>Error: " . $conn->error . "</p>";
 }
 
-
+*/
 
 
 
@@ -47,7 +47,7 @@ if ($conn->query($sql) === TRUE) {
 // Uncomment this entire block (remove /* and */) to add a second admin
 // =========================================================================
 
-
+/*
 $admin2_id       = "A002";
 $admin2_name     = "Daniel Imran";
 $admin2_email    = "daniel@student.utem.edu.my";
@@ -75,11 +75,9 @@ if ($conn->query($sql_2) === TRUE) {
 } else {
     echo "<p>Error: " . $conn->error . "</p>";
 }
+*/
 
 
-// =========================================================================
-
-// Final Security Warning Broadcast
 echo "<div style='font-family: Arial, sans-serif; margin: 20px 50px; padding: 20px; border: 1px solid #dc3545; background-color: #f8d7da; border-radius: 8px;'>";
 echo "<p style='color: #dc3545; font-weight: bold;'>WARNING: Please remove this 'hashAdmin.php' file from the server (htdocs) immediately for security purposes.</p>";
 echo "</div>";

@@ -440,13 +440,19 @@ footer a:hover {
         border-right: none;
         border-bottom: 2px solid #eee;
         flex-direction: row;
-        overflow-x: auto;
-        padding: 10px;
+        flex-wrap: nowrap !important; 
+        overflow-x: auto; 
+        justify-content: flex-start;
+        gap: 10px; 
+        padding: 10px 15px;
+        -webkit-overflow-scrolling: touch; 
     }
 
     .sidebar a {
-        padding: 10px;
-        white-space: nowrap;
+        padding: 8px 18px;
+        white-space: nowrap; 
+        flex-shrink: 0; 
+        margin-bottom: 0;
     }
 
     .stats-grid {

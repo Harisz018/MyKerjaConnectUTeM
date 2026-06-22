@@ -31,16 +31,18 @@ $total_payout = $total_payout ? $total_payout : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employer Dashboard | MyKerjaConnectUTeM</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="dashboard-body">
 
     <header class="dashboard-header">
         <div class="logo">MyKerjaConnectUTeM</div>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div id="welcomeMessage" style="font-weight: 600;">Welcome, <?php echo htmlspecialchars($employer_name); ?></div>
     </header>
 
@@ -78,4 +80,5 @@ $total_payout = $total_payout ? $total_payout : 0.00;
         </main>
     </div>
 </body>
+
 </html>

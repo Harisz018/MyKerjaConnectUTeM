@@ -12,12 +12,12 @@ $name = $_SESSION['name'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['proof_document']) && isset($_POST['app_id'])) {
     $app_id = $conn->real_escape_string($_POST['app_id']);
-    
+
     $target_dir = "uploads/";
     $file_extension = strtolower(pathinfo($_FILES["proof_document"]["name"], PATHINFO_EXTENSION));
     $new_filename = $user_id . "_" . $app_id . "_" . time() . "." . $file_extension;
     $target_file = $target_dir . $new_filename;
-    
+
     if ($file_extension === "pdf") {
         if ($_FILES["proof_document"]["size"] <= 524288000) {
             if (move_uploaded_file($_FILES["proof_document"]["tmp_name"], $target_file)) {
@@ -47,15 +47,17 @@ $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Applications | MyKerjaConnect UTeM</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="dashboard-body">
 
     <header class="dashboard-header">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <div class="logo">MyKerjaConnectUTeM</div>
         <div id="welcomeMessage">Welcome, <?php echo htmlspecialchars($name); ?></div>
     </header>
@@ -71,7 +73,7 @@ $result = $conn->query($sql);
 
         <main class="dashboard-content">
             <h2>Track Your Applications</h2>
-            
+
             <div class="updates-box">
                 <table class="application-table">
                     <thead>
@@ -87,20 +89,20 @@ $result = $conn->query($sql);
                     <tbody>
                         <?php
                         if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
+                            while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['company_name']) . " (" . htmlspecialchars($row['location']) . ")</td>";
                                 echo "<td>" . htmlspecialchars($row['apply_date']) . "</td>";
-                                
+
                                 $status_color = "#333";
-                                if($row['status'] == 'Approved') $status_color = "#28a745";
-                                if($row['status'] == 'Rejected') $status_color = "#dc3545";
+                                if ($row['status'] == 'Approved') $status_color = "#28a745";
+                                if ($row['status'] == 'Rejected') $status_color = "#dc3545";
                                 echo "<td style='color: {$status_color}; font-weight: 600;'>" . htmlspecialchars($row['status']) . "</td>";
-                                
+
                                 $pay_color = "#dc3545";
                                 $pay_text = "Unpaid";
-                                if($row['payment_status'] == 'Paid') {
+                                if ($row['payment_status'] == 'Paid') {
                                     $pay_color = "#28a745";
                                     $pay_text = "Paid";
                                 }
@@ -134,4 +136,5 @@ $result = $conn->query($sql);
         </main>
     </div>
 </body>
+
 </html>
